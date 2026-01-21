@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Graph</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 400px;
+            border-bottom: 3px solid #333;
+            border-left: 3px solid #333;
+            padding: 20px;
+            position: relative;
+        }
+
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .bar {
+            width: 100%;
+            max-width: 80px;
+            background: linear-gradient(to top, #667eea, #764ba2);
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            animation: growUp 1s ease-out;
+        }
+
+        @keyframes growUp {
+            from {
+                height: 0;
+            }
+        }
+
+        .bar:hover {
+            background: linear-gradient(to top, #5568d3, #6a3f8f);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .bar-label {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .bar-value::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #333;
+        }
+
+        .bar:hover .bar-value {
+            top: -40px;
+            transform: translateX(-50%) scale(1.1);
+            background: #667eea;
+        }
+
+        .y-axis {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 5px;
+        }
+
+        .y-label {
+            font-size: 12px;
+            color: #666;
+            transform: translateX(-40px);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            background: linear-gradient(to top, #667eea, #764ba2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monthly Sales Report</h1>
+        <p class="subtitle">Revenue in thousands (USD)</p>
+        
+        <div class="chart">
+            <div class="y-axis">
+                <div class="y-label">100</div>
+                <div class="y-label">75</div>
+                <div class="y-label">50</div>
+                <div class="y-label">25</div>
+                <div class="y-label">0</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar" style="height: 65%;">
+                    <div class="bar-value">$65k</div>
+                </div>
+                <div class="bar-label">Jan</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar" style="height: 78%;">
+                    <div class="bar-value">$78k</div>
+                </div>
+                <div class="bar-label">Feb</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar" style="height: 85%;">
+                    <div class="bar-value">$85k</div>
+                </div>
+                <div class="bar-label">Mar</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar" style="height: 72%;">
+                    <div class="bar-value">$72k</div>
+                </div>
+                <div class="bar-label">Apr</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar" style="height: 92%;">
+                    <div class="bar-value">$92k</div>
+                </div>
+                <div class="bar-label">May</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar" style="height: 88%;">
+                    <div class="bar-value">$88k</div>
+                </div>
+                <div class="bar-label">Jun</div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color"></div>
+                <span>Monthly Revenue</span>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">$480k</div>
+                <div class="stat-label">Total Revenue</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">$80k</div>
+                <div class="stat-label">Average</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">$92k</div>
+                <div class="stat-label">Highest (May)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">+41%</div>
+                <div class="stat-label">Growth</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
